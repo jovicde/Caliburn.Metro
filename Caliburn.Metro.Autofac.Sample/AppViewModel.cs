@@ -20,12 +20,12 @@ namespace Caliburn.Metro.Autofac.Sample
             set { _displayName = value; }
         }
 
-        public void OpenWindow()
+        public async void OpenWindow()
         {
             dynamic settings = new ExpandoObject();
             settings.WindowStartupLocation = WindowStartupLocation.Manual;
 
-            _windowManager.ShowWindow(new AppViewModel(_windowManager), null, settings);
+            await _windowManager.ShowWindowAsync(new AppViewModel(_windowManager), null, settings);
         }
 
         public void OpenSettings()

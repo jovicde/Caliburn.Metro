@@ -1,28 +1,30 @@
-﻿<controls:MetroWindow x:Class="Caliburn.Metro.Sample.MainWindowContainer"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-                      xmlns:Behaviours="clr-namespace:MahApps.Metro.Behaviours;assembly=MahApps.Metro"
-                       xmlns:cal="http://www.caliburnproject.org"
-                       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
-                       ResizeMode="CanResizeWithGrip"
-                       Title="MainWindowContainer" Height="600" Width="800">
+﻿<controls:MetroWindow
+    x:Class="Caliburn.Metro.Sample.MainWindowContainer"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:cal="http://www.caliburnproject.org"
+    xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    Title="MainWindowContainer"
+    Width="800"
+    Height="600"
+    ResizeMode="CanResizeWithGrip">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedSingleRowTabControl.xaml" />
+                <!--<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />-->
+                <!--<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />-->
+                <!--<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedSingleRowTabControl.xaml" />-->
                 <ResourceDictionary Source="pack://application:,,,/Caliburn.Metro.Sample;component/Resources/Icons.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+                <!--<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />-->
+                <!--<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />-->
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
     <controls:MetroWindow.RightWindowCommands>
         <controls:WindowCommands>
-            <Button Content="settings" cal:Message.Attach="OpenSettings"/>
+            <Button cal:Message.Attach="OpenSettings" Content="settings" />
             <Button>
                 <StackPanel Orientation="Horizontal">
                     <Rectangle Width="20" Height="20">
@@ -39,16 +41,16 @@
     </controls:MetroWindow.RightWindowCommands>
     <controls:MetroWindow.Flyouts>
         <controls:FlyoutsControl>
-            <controls:Flyout Header="Bakery" Background="#9f000000" Position="Right" IsOpen="{Binding IsSettingsFlyoutOpen}">
+            <controls:Flyout
+                Background="#9f000000"
+                Header="Bakery"
+                IsOpen="{Binding IsSettingsFlyoutOpen}"
+                Position="Right">
                 <StackPanel>
-                    <controls:Tile Title="My _Cupcakes" Count="23">
-
-                    </controls:Tile>
+                    <controls:Tile Title="My _Cupcakes" Count="23" />
                 </StackPanel>
             </controls:Flyout>
         </controls:FlyoutsControl>
     </controls:MetroWindow.Flyouts>
-    <Grid>
-
-    </Grid>
+    <Grid />
 </controls:MetroWindow>

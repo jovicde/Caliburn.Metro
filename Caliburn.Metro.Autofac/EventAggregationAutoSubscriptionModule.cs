@@ -1,27 +1,39 @@
 ﻿using Caliburn.Micro;
 using Autofac;
 using Autofac.Core;
+using Autofac.Core.Registration;
+using Autofac.Core.Resolving.Pipeline;
+using System.Runtime.InteropServices;
 
 namespace Caliburn.Metro.Autofac
 {
     public class EventAggregationAutoSubscriptionModule : Module
     {
-        protected override void AttachToComponentRegistration(IComponentRegistry registry, IComponentRegistration registration)
+       protected override void AttachToComponentRegistration(IComponentRegistryBuilder componentRegistry, IComponentRegistration registration)
         {
-            registration.Activated += OnComponentActivated;
+            registration.PipelineBuilding += OnComponentActivated;
         }
 
-        static void OnComponentActivated(object sender, ActivatedEventArgs<object> e)
-        { //  we never want to fail, so check for null (should never happen), and return if it is
-            if (e == null)
-                return;
-            //  try to convert instance to IHandle
-            //  I originally did e.Instance.GetType().IsAssignableTo<>() and then 'as', 
-            //  but it seemed redundant
-            var handler = e.Instance as IHandle;
-            //  if it is not null, it implements, so subscribe
-            if (handler != null)
-                e.Context.Resolve<IEventAggregator>().Subscribe(handler);
+       static void OnComponentActivated(object sender, IResolvePipelineBuilder pipeline)
+       {
+           pipeline.Use(PipelinePhase.Activation, MiddlewareInsertionMode.EndOfPhase, (c, next) =>
+           {
+               next(c);
+
+               //  we never want to fail, so check for null (should never happen), and return if it is
+               if (c == null)
+                   return;
+
+               //  try to convert instance to IHandle
+               //  I originally did e.Instance.GetType().IsAssignableTo<>() and then 'as', 
+               //  but it seemed redundant
+               var handler = c.Instance;
+               
+               //  if it is not null, it implements, so subscribe
+               if (handler != null)
+                   c.DecoratorContext?.Resolve<IEventAggregator>().SubscribeOnPublishedThread(handler);
+
+           });
         }
     }
 }
